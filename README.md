@@ -1,6 +1,6 @@
 # Humpty Dumpty — Landing Page
 
-Static landing page for the **Humpty Dumpty** coaching program: a weekly, in-person
+Static landing page for the **Humpty Dumpty** coaching program: a biweekly, in-person
 scripts/objections/skills mastery program for seasoned real estate agents.
 
 ## Stack
@@ -59,12 +59,15 @@ for the decisions that are not. Search `index.html` for `TODO:` to find each one
 
 | Placeholder | Where | Decision needed |
 | --- | --- | --- |
-| `$[PRICE]` | Pricing section | Monthly price |
 | `[PAYMENT TERMS]` | Pricing section | Month-to-month vs. 3-month minimum |
 | `$[INCOME THRESHOLD]` | Who It's For | $150K or $200K guideline |
 | Launch special | Pricing card | Whether there is an intro offer, and what |
 | Form `action` | Apply section | Form handler endpoint (Formspree / Google Form / CRM) |
 | `og:image`, `og:url` | `<head>` | Social share image and live domain |
 | Footer attribution | Footer | Brand/brokerage line and contact details |
+
+Price is set at **$599 + HST / month**. That's an assumption that this is billed
+monthly regardless of the biweekly class cadence — flag it if it should instead
+be per-session or a different billing period.
 
 Instructor, cohort start date, and venue are not yet on the page — add them once confirmed.

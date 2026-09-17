@@ -1,7 +1,11 @@
 # Humpty Dumpty — Landing Page
 
-Static landing page for the **Humpty Dumpty** coaching program: a biweekly, in-person
-scripts/objections/skills mastery program for seasoned real estate agents.
+Static landing page for the **Humpty Dumpty** coaching program: the continuing education
+track for **Fast Track Farming 101** graduates — a biweekly, in-person
+scripts/objections/skills mastery program.
+
+Every Fast Track Farming 101 grad is automatically eligible. There is no application —
+the page links straight to registration.
 
 ## Stack
 
@@ -39,7 +43,7 @@ Colours and component patterns come from the sibling landing page,
 Two brand rules carried over from the sibling site:
 
 - **Red is reserved for asking.** Primary CTAs and the price anchor only; the red
-  eyebrow appears once, on the application section.
+  eyebrow appears once, on the registration section.
 - **`--blue` never carries text on white.** Use `--blue-ink` for anything readable;
   `--blue` is for fills, top rules and eyebrows on the dark slate bands.
 
@@ -62,12 +66,16 @@ for the decisions that are not. Search `index.html` for `TODO:` to find each one
 | `[PAYMENT TERMS]` | Pricing section | Month-to-month vs. 3-month minimum |
 | `$[INCOME THRESHOLD]` | Who It's For | $150K or $200K guideline |
 | Launch special | Pricing card | Whether there is an intro offer, and what |
-| Form `action` | Apply section | Form handler endpoint (Formspree / Google Form / CRM) |
+| Form `action` | Registration section | Form handler endpoint (Formspree / Google Form / CRM) |
 | `og:image`, `og:url` | `<head>` | Social share image and live domain |
 | Footer attribution | Footer | Brand/brokerage line and contact details |
 
 Price is set at **$599 + HST / month**. That's an assumption that this is billed
 monthly regardless of the biweekly class cadence — flag it if it should instead
 be per-session or a different billing period.
+
+The income guideline is now descriptive, not a gate — every Fast Track Farming 101 grad
+is eligible regardless of income, so the placeholder just needs a number for "who else
+will be in the room," not an admission cutoff.
 
 Instructor, cohort start date, and venue are not yet on the page — add them once confirmed.

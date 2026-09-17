@@ -4,146 +4,225 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Humpty Dumpty — Scripts, Objections, Skills</title>
-<meta name="description" content="A weekly, in-person mastery program for seasoned real estate agents. Two hours a week of scripts, objection handling and live roleplay — plus flash calls before your listing appointments." />
+<meta name="description" content="A weekly, in-person mastery program for seasoned real estate agents. Two hours a week of scripts, objection handling and live roleplay — plus two flash calls a month, right before it counts." />
 
-<!-- Open Graph / social -->
 <meta property="og:title" content="Humpty Dumpty — Scripts, Objections, Skills" />
-<meta property="og:description" content="A weekly, in-person mastery program for seasoned real estate agents. Scripts, objections, skills — practiced live, every week." />
+<meta property="og:description" content="A weekly, in-person mastery program for seasoned real estate agents. Scripts, objections, skills — practiced out loud, every week." />
 <meta property="og:type" content="website" />
+<meta property="og:site_name" content="Let's Farm with Monica Thapar" />
 <!-- TODO: add og:image (1200x630) and og:url once the domain is live -->
-
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
+  // Brand palette — mirrors :root below and the tokens in ryanthapar/farming-fast-track.
+  // Keep the two in sync; the CSS variables are the source of truth for hand-written rules.
   tailwind.config = {
     theme: {
       extend: {
-        fontFamily: {
-          sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-          display: ['Fraunces', 'ui-serif', 'Georgia', 'serif'],
-        },
         colors: {
-          ink:   { 900: '#0B1220', 800: '#111A2C', 700: '#1B2740', 600: '#2A3852' },
-          shell: { 50: '#FDFBF7', 100: '#F6F1E7', 200: '#EADFC9' },
-          gold:  { 300: '#E8C27A', 400: '#D9A94E', 500: '#C08F2E', 600: '#9A701F' },
+          ground:   '#ffffff',
+          surface:  '#f5f8fa',
+          surface2: '#eaf0f3',
+          slate:    { DEFAULT: '#37576b', deep: '#294452' },
+          body:     '#4a5257',
+          muted:    '#7b868d',
+          red:      '#e02d24',
+          green:    '#4f9c3a',
+          blue:     { DEFAULT: '#97ccde', ink: '#2a7a96' },
+          line:     '#e3e9ec',
         },
+        maxWidth: { brand: '960px' },
+        boxShadow: { brand: '0 10px 30px rgba(41,68,82,.10)' },
       },
     },
   };
 </script>
+
 <style>
-  /* Set before Tailwind's CDN build runs, so the dark page doesn't flash white. */
-  html, body { background-color: #0B1220; color: #F6F1E7; }
-  .grain { background-image: radial-gradient(rgba(255,255,255,.035) 1px, transparent 1px); background-size: 3px 3px; }
-  .tnum { font-variant-numeric: tabular-nums; }
-  [data-faq] > summary::-webkit-details-marker { display: none; }
-  [data-faq][open] .faq-chev { transform: rotate(180deg); }
+  /* ---------------------------------------------------------------
+     Brand tokens — copied from ryanthapar/farming-fast-track so both
+     landing pages share one vocabulary. Change them in both places.
+     --------------------------------------------------------------- */
+  :root{
+    --ground:#ffffff;
+    --surface:#f5f8fa;
+    --surface-2:#eaf0f3;
+    --slate:#37576b;
+    --slate-deep:#294452;
+    --body:#4a5257;
+    --muted:#7b868d;
+    --red:#e02d24;
+    --green:#4f9c3a;
+    /* Brand blue is a light tint — fills, bars and accents only (1.75:1 on white).
+       --blue-ink is the same hue darkened for legible text (4.86:1 on white). */
+    --blue:#97ccde;
+    --blue-ink:#2a7a96;
+    --line:#e3e9ec;
+    --shadow:0 10px 30px rgba(41,68,82,.10);
+    --maxw:960px;
+    color-scheme:light;
+  }
+
+  html,body{background:var(--ground);color:var(--body);}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-size:18px;line-height:1.6;letter-spacing:.1px;-webkit-font-smoothing:antialiased;
+  }
+
+  /* Display / headings — brand treatment: heavy, uppercase, tight */
+  .display{
+    font-weight:900;color:var(--slate);text-transform:uppercase;
+    letter-spacing:-.5px;line-height:.98;text-wrap:balance;margin:0;
+  }
+  h1.display{font-size:clamp(34px,5.5vw,60px);letter-spacing:-.4px;line-height:1.02}
+  h2.section{
+    font-weight:900;color:var(--slate);text-transform:uppercase;
+    font-size:clamp(30px,6vw,52px);letter-spacing:-.5px;line-height:1;
+    text-wrap:balance;margin:0;
+  }
+  .eyebrow{
+    text-transform:uppercase;letter-spacing:3px;font-size:13px;font-weight:800;
+    color:var(--blue-ink);margin:0 0 14px;
+  }
+  /* Red eyebrow is reserved for the one section asking for action */
+  .eyebrow--red{color:var(--red)}
+
+  /* Buttons */
+  .btn{
+    display:inline-block;font-weight:800;font-size:16px;letter-spacing:.4px;
+    text-transform:uppercase;text-decoration:none;border-radius:999px;
+    padding:16px 40px;text-align:center;border:0;cursor:pointer;
+    transition:transform .12s ease,box-shadow .12s ease,background .12s ease;
+  }
+  .btn-primary{background:var(--red);color:#fff;box-shadow:0 8px 22px rgba(224,45,36,.28)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(224,45,36,.36)}
+  .btn-ghost{background:transparent;color:var(--slate);border:2px solid var(--slate)}
+  .btn-ghost:hover{background:var(--slate);color:var(--ground);transform:translateY(-2px)}
+  .btn-sm{padding:11px 24px;font-size:14px}
+
+  /* FAQ disclosure — brand +/– marker in green */
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary{list-style:none}
+  .faq summary::after{
+    content:"+";position:absolute;right:8px;top:12px;
+    font-size:24px;font-weight:800;color:var(--green);line-height:1;
+  }
+  .faq[open] summary::after{content:"\2013"}
+
+  /* Sticky mobile registration bar — mirrors the sibling site */
+  .sticky-cta{display:none}
+  @media (max-width:720px){
+    .sticky-cta{
+      display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;
+      align-items:center;justify-content:space-between;gap:12px;
+      background:var(--slate);color:#fff;
+      padding:10px 14px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));
+      box-shadow:0 -6px 20px rgba(41,68,82,.3);
+    }
+    .sticky-cta .info{margin:0;font-size:14px;font-weight:900;line-height:1.25;letter-spacing:.2px}
+    .sticky-cta .info span{display:block;font-size:12.5px;font-weight:700;color:rgba(255,255,255,.75)}
+    .sticky-cta .btn{padding:13px 22px;font-size:14px;white-space:nowrap}
+    body{padding-bottom:76px}
+  }
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 
-<body class="bg-ink-900 text-shell-100 font-sans antialiased">
+<body class="antialiased">
 
 <!-- ================= NAV ================= -->
-<header class="sticky top-0 z-50 border-b border-white/10 bg-ink-900/80 backdrop-blur">
-  <nav class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4">
+<header class="sticky top-0 z-50 border-b border-line bg-ground/95 backdrop-blur">
+  <nav class="mx-auto flex max-w-brand items-center justify-between gap-4 px-6 py-3.5">
     <a href="#top" class="flex items-center gap-2.5">
-      <span class="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-b from-shell-100 to-shell-200 text-sm font-bold text-ink-900">HD</span>
-      <span class="font-display text-lg font-semibold tracking-tight text-shell-50">Humpty&nbsp;Dumpty</span>
+      <span class="grid h-8 w-8 place-items-center rounded-full bg-slate text-[13px] font-black text-white">HD</span>
+      <span class="text-[17px] font-black uppercase tracking-tight text-slate">Humpty&nbsp;Dumpty</span>
     </a>
-    <div class="hidden items-center gap-7 text-sm text-shell-100/70 md:flex">
-      <a href="#sos" class="transition hover:text-shell-50">The Method</a>
-      <a href="#class" class="transition hover:text-shell-50">Every Class</a>
-      <a href="#topics" class="transition hover:text-shell-50">Topics</a>
-      <a href="#who" class="transition hover:text-shell-50">Who It's For</a>
-      <a href="#faq" class="transition hover:text-shell-50">FAQ</a>
+    <div class="hidden items-center gap-7 text-[13px] font-bold uppercase tracking-wider text-muted md:flex">
+      <a href="#sos" class="transition hover:text-slate">Method</a>
+      <a href="#class" class="transition hover:text-slate">Every Class</a>
+      <a href="#topics" class="transition hover:text-slate">Topics</a>
+      <a href="#who" class="transition hover:text-slate">Who It's For</a>
+      <a href="#faq" class="transition hover:text-slate">FAQ</a>
     </div>
-    <a href="#apply" class="rounded-full bg-gold-400 px-5 py-2 text-sm font-semibold text-ink-900 transition hover:bg-gold-300">Apply</a>
+    <a href="#apply" class="btn btn-primary btn-sm">Apply</a>
   </nav>
 </header>
 
 <!-- ================= HERO ================= -->
-<section id="top" class="grain relative overflow-hidden">
-  <div class="pointer-events-none absolute -top-40 left-1/2 h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-gold-500/20 blur-[120px]"></div>
-  <div class="relative mx-auto max-w-6xl px-5 pb-20 pt-20 md:pb-28 md:pt-28">
-    <p class="mb-5 inline-flex items-center gap-2 rounded-full border border-gold-400/30 bg-gold-400/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-gold-300">
-      Invitation only · Seasoned agents
-    </p>
+<section id="top" class="bg-ground">
+  <div class="mx-auto max-w-brand px-6 pb-12 pt-14 text-center md:pt-16">
+    <p class="eyebrow">Invitation Only · Seasoned Agents</p>
+    <h1 class="display">Scripts. Objections. Skills.<br />Practiced Out Loud, Every Single Week.</h1>
 
-    <h1 class="max-w-4xl font-display text-4xl font-semibold leading-[1.08] tracking-tight text-shell-50 sm:text-5xl md:text-6xl">
-      Scripts. Objections. Skills.<br />
-      <span class="text-gold-300">Practiced out loud, every single week.</span>
-    </h1>
-
-    <p class="mt-6 max-w-2xl text-lg leading-relaxed text-shell-100/75">
+    <p class="mx-auto mt-6 max-w-[660px] text-[19px] text-body" style="text-wrap:balance">
       Humpty Dumpty is a weekly, in-person mastery program for agents who already have a
-      business — and know the gap between <em class="not-italic text-shell-50">knowing</em> the
-      script and <em class="not-italic text-shell-50">landing</em> it when a seller pushes back.
-      Two hours a week. Live roleplay. Real objections. No theatre.
+      business — and know the gap between <b class="text-slate-deep">knowing</b> the script and
+      <b class="text-slate-deep">landing</b> it when a seller pushes back. Two hours a week.
+      Live roleplay. Real objections. No theatre.
     </p>
 
-    <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-      <a href="#apply" class="rounded-full bg-gold-400 px-7 py-3.5 text-center font-semibold text-ink-900 transition hover:bg-gold-300">Apply for the next cohort</a>
-      <a href="#class" class="rounded-full border border-white/15 px-7 py-3.5 text-center font-semibold text-shell-50 transition hover:border-white/35 hover:bg-white/5">See how a class runs</a>
+    <div class="mt-7 flex flex-wrap justify-center gap-3.5">
+      <a href="#apply" class="btn btn-primary">Apply for the next cohort</a>
+      <a href="#class" class="btn btn-ghost">See how a class runs</a>
     </div>
 
-    <!-- Quick facts -->
-    <dl class="mt-14 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-4">
-      <div class="bg-ink-800 p-5">
-        <dt class="text-xs uppercase tracking-wider text-shell-100/50">Cadence</dt>
-        <dd class="tnum mt-1.5 font-display text-2xl font-semibold text-shell-50">2 hrs<span class="text-base font-normal text-shell-100/60">/week</span></dd>
-      </div>
-      <div class="bg-ink-800 p-5">
-        <dt class="text-xs uppercase tracking-wider text-shell-100/50">Format</dt>
-        <dd class="mt-1.5 font-display text-2xl font-semibold text-shell-50">In person</dd>
-      </div>
-      <div class="bg-ink-800 p-5">
-        <dt class="text-xs uppercase tracking-wider text-shell-100/50">Flash calls</dt>
-        <dd class="tnum mt-1.5 font-display text-2xl font-semibold text-shell-50">2<span class="text-base font-normal text-shell-100/60">/month</span></dd>
-      </div>
-      <div class="bg-ink-800 p-5">
-        <dt class="text-xs uppercase tracking-wider text-shell-100/50">Focus</dt>
-        <dd class="mt-1.5 font-display text-2xl font-semibold text-shell-50">Listing &amp; buyer</dd>
-      </div>
-    </dl>
+    <p class="mx-auto mt-6 max-w-[560px] text-[14.5px] font-bold text-muted">
+      Applications are reviewed one at a time — no payment until we've spoken.
+    </p>
+  </div>
+</section>
+
+<!-- ================= DETAILS BAND (slate) ================= -->
+<section class="bg-slate text-white">
+  <div class="mx-auto grid max-w-brand grid-cols-2 gap-6 px-6 py-7 text-center md:grid-cols-4">
+    <div>
+      <p class="m-0 mb-2 text-[12px] font-extrabold uppercase tracking-[2px] opacity-75">Cadence</p>
+      <p class="m-0 text-[20px] font-extrabold leading-tight">2 hrs / week</p>
+    </div>
+    <div>
+      <p class="m-0 mb-2 text-[12px] font-extrabold uppercase tracking-[2px] opacity-75">Format</p>
+      <p class="m-0 text-[20px] font-extrabold leading-tight">In person</p>
+    </div>
+    <div>
+      <p class="m-0 mb-2 text-[12px] font-extrabold uppercase tracking-[2px] opacity-75">Flash calls</p>
+      <p class="m-0 text-[20px] font-extrabold leading-tight">2 / month</p>
+    </div>
+    <div>
+      <p class="m-0 mb-2 text-[12px] font-extrabold uppercase tracking-[2px] opacity-75">Focus</p>
+      <p class="m-0 text-[20px] font-extrabold leading-tight">Listing &amp; buyer</p>
+    </div>
   </div>
 </section>
 
 <!-- ================= SOS METHOD ================= -->
-<section id="sos" class="border-y border-white/10 bg-ink-800">
-  <div class="mx-auto max-w-6xl px-5 py-20 md:py-24">
-    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-gold-400">The method</p>
-    <h2 class="mt-3 max-w-3xl font-display text-3xl font-semibold tracking-tight text-shell-50 md:text-4xl">
-      Everything we do runs on S.O.S.
-    </h2>
-    <p class="mt-4 max-w-2xl text-shell-100/70">
+<section id="sos" class="bg-ground py-12 md:py-14">
+  <div class="mx-auto max-w-brand px-6">
+    <p class="eyebrow text-center">The Method</p>
+    <h2 class="section text-center">Everything We Do Runs On S.O.S.</h2>
+    <p class="mx-auto mt-4 max-w-[640px] text-center text-body">
       Three things separate the agent who wins the listing from the one who gets
       "we're going to think about it." We drill all three, every week, until they're reflex.
     </p>
 
-    <div class="mt-12 grid gap-6 md:grid-cols-3">
-      <article class="rounded-2xl border border-white/10 bg-ink-700/60 p-7">
-        <span class="font-display text-5xl font-semibold text-gold-400/30">S</span>
-        <h3 class="mt-2 font-display text-xl font-semibold text-shell-50">Scripts</h3>
-        <p class="mt-3 text-sm leading-relaxed text-shell-100/70">
+    <div class="mt-8 grid gap-4 md:grid-cols-3">
+      <article class="rounded-[14px] border border-line bg-surface p-6">
+        <p class="m-0 text-[12.5px] font-black uppercase tracking-[1.5px] text-blue-ink">S — Scripts</p>
+        <p class="mt-2.5 text-[15.5px] leading-relaxed text-body">
           Word-for-word language for the calls that actually move your business — prospecting,
           follow-up, pre-qualifying, the listing presentation. Learned properly, then made yours.
         </p>
       </article>
-      <article class="rounded-2xl border border-white/10 bg-ink-700/60 p-7">
-        <span class="font-display text-5xl font-semibold text-gold-400/30">O</span>
-        <h3 class="mt-2 font-display text-xl font-semibold text-shell-50">Objections</h3>
-        <p class="mt-3 text-sm leading-relaxed text-shell-100/70">
+      <article class="rounded-[14px] border border-line bg-surface p-6">
+        <p class="m-0 text-[12.5px] font-black uppercase tracking-[1.5px] text-blue-ink">O — Objections</p>
+        <p class="mt-2.5 text-[15.5px] leading-relaxed text-body">
           One objection handler per class, dissected and rehearsed live. Commission, timing,
           price, "my brother-in-law is an agent" — you'll have an answer you believe in.
         </p>
       </article>
-      <article class="rounded-2xl border border-white/10 bg-ink-700/60 p-7">
-        <span class="font-display text-5xl font-semibold text-gold-400/30">S</span>
-        <h3 class="mt-2 font-display text-xl font-semibold text-shell-50">Skills</h3>
-        <p class="mt-3 text-sm leading-relaxed text-shell-100/70">
+      <article class="rounded-[14px] border border-line bg-surface p-6">
+        <p class="m-0 text-[12.5px] font-black uppercase tracking-[1.5px] text-blue-ink">S — Skills</p>
+        <p class="mt-2.5 text-[15.5px] leading-relaxed text-body">
           Delivery, tone, pacing, silence. The difference between reading a script and running
           a conversation. Built through individual scenarios and challenges in the room.
         </p>
@@ -153,260 +232,238 @@
 </section>
 
 <!-- ================= EVERY CLASS ================= -->
-<section id="class" class="mx-auto max-w-6xl px-5 py-20 md:py-24">
-  <p class="text-xs font-semibold uppercase tracking-[0.18em] text-gold-400">Every class</p>
-  <h2 class="mt-3 max-w-3xl font-display text-3xl font-semibold tracking-tight text-shell-50 md:text-4xl">
-    The same four parts, every week.
-  </h2>
-  <p class="mt-4 max-w-2xl text-shell-100/70">
-    Consistency is the point. You always know what you're walking into — and you always leave
-    having said the words out loud.
-  </p>
-
-  <ol class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-    <li class="rounded-2xl border border-white/10 bg-ink-800 p-6">
-      <span class="tnum font-display text-sm font-semibold text-gold-400">01</span>
-      <h3 class="mt-2 font-display text-lg font-semibold text-shell-50">Mindset</h3>
-      <p class="mt-2 text-sm leading-relaxed text-shell-100/70">
-        We open by getting your head right. Skills don't survive a bad frame.
-      </p>
-    </li>
-    <li class="rounded-2xl border border-white/10 bg-ink-800 p-6">
-      <span class="tnum font-display text-sm font-semibold text-gold-400">02</span>
-      <h3 class="mt-2 font-display text-lg font-semibold text-shell-50">Roleplay</h3>
-      <p class="mt-2 text-sm leading-relaxed text-shell-100/70">
-        Live, in the room, with a partner. Not a demo you watch — a rep you take.
-      </p>
-    </li>
-    <li class="rounded-2xl border border-white/10 bg-ink-800 p-6">
-      <span class="tnum font-display text-sm font-semibold text-gold-400">03</span>
-      <h3 class="mt-2 font-display text-lg font-semibold text-shell-50">Individual scenarios</h3>
-      <p class="mt-2 text-sm leading-relaxed text-shell-100/70">
-        Your challenges, your deals, your stuck conversations — worked one at a time.
-      </p>
-    </li>
-    <li class="rounded-2xl border border-white/10 bg-ink-800 p-6">
-      <span class="tnum font-display text-sm font-semibold text-gold-400">04</span>
-      <h3 class="mt-2 font-display text-lg font-semibold text-shell-50">One objection handler</h3>
-      <p class="mt-2 text-sm leading-relaxed text-shell-100/70">
-        A single objection, taken apart and rehearsed until it stops being scary.
-      </p>
-    </li>
-  </ol>
-
-  <div class="mt-6 rounded-2xl border border-gold-400/25 bg-gold-400/[0.07] p-7">
-    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-gold-300">Plus</p>
-    <h3 class="mt-2 font-display text-xl font-semibold text-shell-50">A monthly deep-dive topic</h3>
-    <p class="mt-2 max-w-3xl text-sm leading-relaxed text-shell-100/75">
-      On top of the weekly four, each month centres on one discipline — expireds, FSBOs,
-      open house conversations, the seller presentation. See the catalogue below.
+<section id="class" class="bg-surface py-12 md:py-14">
+  <div class="mx-auto max-w-brand px-6">
+    <p class="eyebrow text-center">Every Class</p>
+    <h2 class="section text-center">The Same Four Parts, Every Week.</h2>
+    <p class="mx-auto mt-4 max-w-[640px] text-center text-body">
+      Consistency is the point. You always know what you're walking into — and you always leave
+      having said the words out loud.
     </p>
+
+    <ol class="mt-8 grid list-none gap-3 p-0 sm:grid-cols-2 lg:grid-cols-4">
+      <li class="rounded-[14px] border border-line bg-ground p-5">
+        <span class="text-[14px] font-extrabold tabular-nums text-muted">01</span>
+        <h3 class="mt-1.5 text-[17.5px] font-black leading-tight text-slate">Mindset</h3>
+        <p class="mt-2 text-[15px] leading-relaxed text-body">We open by getting your head right. Skills don't survive a bad frame.</p>
+      </li>
+      <li class="rounded-[14px] border border-line bg-ground p-5">
+        <span class="text-[14px] font-extrabold tabular-nums text-muted">02</span>
+        <h3 class="mt-1.5 text-[17.5px] font-black leading-tight text-slate">Roleplay</h3>
+        <p class="mt-2 text-[15px] leading-relaxed text-body">Live, in the room, with a partner. Not a demo you watch — a rep you take.</p>
+      </li>
+      <li class="rounded-[14px] border border-line bg-ground p-5">
+        <span class="text-[14px] font-extrabold tabular-nums text-muted">03</span>
+        <h3 class="mt-1.5 text-[17.5px] font-black leading-tight text-slate">Individual Scenarios</h3>
+        <p class="mt-2 text-[15px] leading-relaxed text-body">Your challenges, your deals, your stuck conversations — worked one at a time.</p>
+      </li>
+      <li class="rounded-[14px] border border-line bg-ground p-5">
+        <span class="text-[14px] font-extrabold tabular-nums text-muted">04</span>
+        <h3 class="mt-1.5 text-[17.5px] font-black leading-tight text-slate">One Objection Handler</h3>
+        <p class="mt-2 text-[15px] leading-relaxed text-body">A single objection, taken apart and rehearsed until it stops being scary.</p>
+      </li>
+    </ol>
+
+    <!-- Monthly topic callout — brand .plan pattern: green left rule -->
+    <div class="mx-auto mt-5 max-w-[820px] rounded-[14px] border border-line border-l-[5px] border-l-green bg-ground p-6 shadow-brand">
+      <p class="m-0 mb-2 text-[12.5px] font-black uppercase tracking-[1.5px] text-green">Plus</p>
+      <p class="m-0 text-[16px] font-bold leading-relaxed text-slate-deep">
+        <b class="text-slate">A monthly deep-dive topic.</b> On top of the weekly four, each month
+        centres on one discipline — expireds, FSBOs, open house conversations, the seller
+        presentation. See the catalogue below.
+      </p>
+    </div>
   </div>
 </section>
 
-<!-- ================= FLASH CALLS ================= -->
-<section class="border-y border-white/10 bg-ink-800">
-  <div class="mx-auto grid max-w-6xl items-center gap-10 px-5 py-20 md:grid-cols-2 md:py-24">
-    <div>
-      <p class="text-xs font-semibold uppercase tracking-[0.18em] text-gold-400">Included</p>
-      <h2 class="mt-3 font-display text-3xl font-semibold tracking-tight text-shell-50 md:text-4xl">
-        Two flash calls a month.
-      </h2>
-      <p class="mt-4 text-shell-100/75">
-        You're in the car, twenty minutes out from a listing appointment, and something about
-        this one is different. Call. We'll prep the objection you're worried about, sharpen
-        the open, and get you out of the car ready.
+<!-- ================= FLASH CALLS (dark band) ================= -->
+<section class="bg-slate py-12 text-white md:py-14">
+  <div class="mx-auto max-w-brand px-6">
+    <p class="eyebrow text-center" style="color:var(--blue)">Included</p>
+    <h2 class="section text-center" style="color:#fff">Two Flash Calls A Month.</h2>
+    <p class="mx-auto mt-4 max-w-[720px] text-center text-[17.5px] leading-relaxed" style="color:rgba(255,255,255,.88)">
+      You're in the car, twenty minutes out from a listing appointment, and something about this
+      one is different. Call. <b class="text-white">We'll prep the objection you're worried about,
+      sharpen the open, and get you out of the car ready.</b>
+    </p>
+
+    <div class="mx-auto mt-7 max-w-[760px] rounded-[18px] p-7" style="background:rgba(151,204,222,.1);border:1px solid rgba(151,204,222,.55)">
+      <p class="m-0 text-center text-[clamp(18px,4vw,24px)] font-black leading-tight text-white" style="text-wrap:balance">
+        "Training is what you do on Tuesday. A flash call is what you get when it counts."
       </p>
-      <p class="mt-4 text-shell-100/75">
-        Training is what you do on Tuesday. A flash call is what you get when it counts.
-      </p>
-    </div>
-    <div class="rounded-2xl border border-white/10 bg-ink-700/60 p-8">
-      <ul class="space-y-4 text-sm text-shell-100/80">
-        <li class="flex gap-3"><span class="mt-0.5 text-gold-400">→</span><span>Right before a listing presentation</span></li>
-        <li class="flex gap-3"><span class="mt-0.5 text-gold-400">→</span><span>Before a hard price-reduction conversation</span></li>
-        <li class="flex gap-3"><span class="mt-0.5 text-gold-400">→</span><span>When a buyer consult keeps stalling at the same point</span></li>
-        <li class="flex gap-3"><span class="mt-0.5 text-gold-400">→</span><span>Any time the next hour is worth more than the next week</span></li>
+      <ul class="mx-auto mt-6 grid max-w-[600px] list-none gap-2.5 p-0 text-[15.5px] sm:grid-cols-2" style="color:rgba(255,255,255,.88)">
+        <li class="flex gap-2.5"><span class="font-black" style="color:var(--blue)">→</span><span>Right before a listing presentation</span></li>
+        <li class="flex gap-2.5"><span class="font-black" style="color:var(--blue)">→</span><span>Before a hard price-reduction talk</span></li>
+        <li class="flex gap-2.5"><span class="font-black" style="color:var(--blue)">→</span><span>When a buyer consult keeps stalling</span></li>
+        <li class="flex gap-2.5"><span class="font-black" style="color:var(--blue)">→</span><span>When the next hour beats the next week</span></li>
       </ul>
     </div>
   </div>
 </section>
 
 <!-- ================= TOPICS ================= -->
-<section id="topics" class="mx-auto max-w-6xl px-5 py-20 md:py-24">
-  <p class="text-xs font-semibold uppercase tracking-[0.18em] text-gold-400">The catalogue</p>
-  <h2 class="mt-3 max-w-3xl font-display text-3xl font-semibold tracking-tight text-shell-50 md:text-4xl">
-    Twelve of the topics we cover.
-  </h2>
-  <p class="mt-4 max-w-2xl text-shell-100/70">
-    A showcase, not a syllabus cap — order shifts with what the market and the room need.
-  </p>
+<section id="topics" class="bg-ground py-12 md:py-14">
+  <div class="mx-auto max-w-[1000px] px-6">
+    <p class="eyebrow text-center">The Catalogue</p>
+    <h2 class="section text-center">Twelve Of The Topics We Cover.</h2>
+    <p class="mx-auto mt-4 max-w-[640px] text-center text-body">
+      A showcase, not a syllabus cap — order shifts with what the market and the room need.
+    </p>
 
-  <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
 
-    <!-- 1 -->
-    <article class="group rounded-2xl border border-white/10 bg-ink-800 p-6 transition hover:border-gold-400/40">
-      <div class="flex items-start justify-between gap-3">
-        <span class="tnum font-display text-sm font-semibold text-gold-400">01</span>
-        <span class="rounded-full border border-white/15 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-shell-100/60">Seller · Buyer</span>
-      </div>
-      <h3 class="mt-3 font-display text-lg font-semibold leading-snug text-shell-50">Prospecting</h3>
-      <p class="mt-2 text-sm leading-relaxed text-shell-100/70">Who to call, and exactly what to say when they pick up.</p>
-    </article>
+      <article class="rounded-[14px] border border-line bg-surface p-5">
+        <div class="flex items-start justify-between gap-3">
+          <span class="text-[14px] font-extrabold tabular-nums text-muted">01</span>
+          <span class="rounded-full border border-line bg-ground px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-deep">Seller · Buyer</span>
+        </div>
+        <h3 class="mt-2 text-[16.5px] font-black leading-tight text-slate">Prospecting</h3>
+        <p class="mt-1.5 text-[15px] leading-snug text-body">Who to call, and exactly what to say when they pick up.</p>
+      </article>
 
-    <!-- 2 -->
-    <article class="group rounded-2xl border border-white/10 bg-ink-800 p-6 transition hover:border-gold-400/40">
-      <div class="flex items-start justify-between gap-3">
-        <span class="tnum font-display text-sm font-semibold text-gold-400">02</span>
-        <span class="rounded-full border border-white/15 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-shell-100/60">Seller</span>
-      </div>
-      <h3 class="mt-3 font-display text-lg font-semibold leading-snug text-shell-50">Legal Expireds in the Farm — I</h3>
-      <p class="mt-2 text-sm leading-relaxed text-shell-100/70">Working expireds inside your farm, compliantly and confidently.</p>
-    </article>
+      <article class="rounded-[14px] border border-line bg-surface p-5">
+        <div class="flex items-start justify-between gap-3">
+          <span class="text-[14px] font-extrabold tabular-nums text-muted">02</span>
+          <span class="rounded-full border border-line bg-ground px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-deep">Seller</span>
+        </div>
+        <h3 class="mt-2 text-[16.5px] font-black leading-tight text-slate">Legal Expireds in the Farm — I</h3>
+        <p class="mt-1.5 text-[15px] leading-snug text-body">Working expireds inside your farm, compliantly and confidently.</p>
+      </article>
 
-    <!-- 3 -->
-    <article class="group rounded-2xl border border-white/10 bg-ink-800 p-6 transition hover:border-gold-400/40">
-      <div class="flex items-start justify-between gap-3">
-        <span class="tnum font-display text-sm font-semibold text-gold-400">03</span>
-        <span class="rounded-full border border-white/15 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-shell-100/60">Seller</span>
-      </div>
-      <h3 class="mt-3 font-display text-lg font-semibold leading-snug text-shell-50">Legal Expireds in the Farm — II</h3>
-      <p class="mt-2 text-sm leading-relaxed text-shell-100/70">The follow-up half: staying in front of them until they list.</p>
-    </article>
+      <article class="rounded-[14px] border border-line bg-surface p-5">
+        <div class="flex items-start justify-between gap-3">
+          <span class="text-[14px] font-extrabold tabular-nums text-muted">03</span>
+          <span class="rounded-full border border-line bg-ground px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-deep">Seller</span>
+        </div>
+        <h3 class="mt-2 text-[16.5px] font-black leading-tight text-slate">Legal Expireds in the Farm — II</h3>
+        <p class="mt-1.5 text-[15px] leading-snug text-body">The follow-up half: staying in front of them until they list.</p>
+      </article>
 
-    <!-- 4 -->
-    <article class="group rounded-2xl border border-white/10 bg-ink-800 p-6 transition hover:border-gold-400/40">
-      <div class="flex items-start justify-between gap-3">
-        <span class="tnum font-display text-sm font-semibold text-gold-400">04</span>
-        <span class="rounded-full border border-white/15 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-shell-100/60">Seller</span>
-      </div>
-      <h3 class="mt-3 font-display text-lg font-semibold leading-snug text-shell-50">FSBOs in the Farm</h3>
-      <p class="mt-2 text-sm leading-relaxed text-shell-100/70">Approaching for-sale-by-owner without getting the door closed.</p>
-    </article>
+      <article class="rounded-[14px] border border-line bg-surface p-5">
+        <div class="flex items-start justify-between gap-3">
+          <span class="text-[14px] font-extrabold tabular-nums text-muted">04</span>
+          <span class="rounded-full border border-line bg-ground px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-deep">Seller</span>
+        </div>
+        <h3 class="mt-2 text-[16.5px] font-black leading-tight text-slate">FSBOs in the Farm</h3>
+        <p class="mt-1.5 text-[15px] leading-snug text-body">Approaching for-sale-by-owner without getting the door closed.</p>
+      </article>
 
-    <!-- 5 -->
-    <article class="group rounded-2xl border border-white/10 bg-ink-800 p-6 transition hover:border-gold-400/40">
-      <div class="flex items-start justify-between gap-3">
-        <span class="tnum font-display text-sm font-semibold text-gold-400">05</span>
-        <span class="rounded-full border border-white/15 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-shell-100/60">Seller · Buyer</span>
-      </div>
-      <h3 class="mt-3 font-display text-lg font-semibold leading-snug text-shell-50">Lead Follow-Up</h3>
-      <p class="mt-2 text-sm leading-relaxed text-shell-100/70">The compounding discipline most agents quit after two touches.</p>
-    </article>
+      <article class="rounded-[14px] border border-line bg-surface p-5">
+        <div class="flex items-start justify-between gap-3">
+          <span class="text-[14px] font-extrabold tabular-nums text-muted">05</span>
+          <span class="rounded-full border border-line bg-ground px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-deep">Seller · Buyer</span>
+        </div>
+        <h3 class="mt-2 text-[16.5px] font-black leading-tight text-slate">Lead Follow-Up</h3>
+        <p class="mt-1.5 text-[15px] leading-snug text-body">The compounding discipline most agents quit after two touches.</p>
+      </article>
 
-    <!-- 6 -->
-    <article class="group rounded-2xl border border-white/10 bg-ink-800 p-6 transition hover:border-gold-400/40">
-      <div class="flex items-start justify-between gap-3">
-        <span class="tnum font-display text-sm font-semibold text-gold-400">06</span>
-        <span class="rounded-full border border-white/15 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-shell-100/60">Business</span>
-      </div>
-      <h3 class="mt-3 font-display text-lg font-semibold leading-snug text-shell-50">Systems &amp; Processes</h3>
-      <p class="mt-2 text-sm leading-relaxed text-shell-100/70">Building the back end so the front end can scale.</p>
-    </article>
+      <article class="rounded-[14px] border border-line bg-surface p-5">
+        <div class="flex items-start justify-between gap-3">
+          <span class="text-[14px] font-extrabold tabular-nums text-muted">06</span>
+          <span class="rounded-full border border-line bg-ground px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-deep">Business</span>
+        </div>
+        <h3 class="mt-2 text-[16.5px] font-black leading-tight text-slate">Systems &amp; Processes</h3>
+        <p class="mt-1.5 text-[15px] leading-snug text-body">Building the back end so the front end can scale.</p>
+      </article>
 
-    <!-- 7 -->
-    <article class="group rounded-2xl border border-white/10 bg-ink-800 p-6 transition hover:border-gold-400/40">
-      <div class="flex items-start justify-between gap-3">
-        <span class="tnum font-display text-sm font-semibold text-gold-400">07</span>
-        <span class="rounded-full border border-white/15 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-shell-100/60">Seller · Buyer</span>
-      </div>
-      <h3 class="mt-3 font-display text-lg font-semibold leading-snug text-shell-50">Open House Conversations</h3>
-      <p class="mt-2 text-sm leading-relaxed text-shell-100/70">Turning a Saturday of small talk into booked appointments.</p>
-    </article>
+      <article class="rounded-[14px] border border-line bg-surface p-5">
+        <div class="flex items-start justify-between gap-3">
+          <span class="text-[14px] font-extrabold tabular-nums text-muted">07</span>
+          <span class="rounded-full border border-line bg-ground px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-deep">Seller · Buyer</span>
+        </div>
+        <h3 class="mt-2 text-[16.5px] font-black leading-tight text-slate">Open House Conversations</h3>
+        <p class="mt-1.5 text-[15px] leading-snug text-body">Turning a Saturday of small talk into booked appointments.</p>
+      </article>
 
-    <!-- 8 -->
-    <article class="group rounded-2xl border border-white/10 bg-ink-800 p-6 transition hover:border-gold-400/40">
-      <div class="flex items-start justify-between gap-3">
-        <span class="tnum font-display text-sm font-semibold text-gold-400">08</span>
-        <span class="rounded-full border border-white/15 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-shell-100/60">Seller · Buyer</span>
-      </div>
-      <h3 class="mt-3 font-display text-lg font-semibold leading-snug text-shell-50">Pre-Qualifying Leads</h3>
-      <p class="mt-2 text-sm leading-relaxed text-shell-100/70">Asking the hard questions early so you stop donating weekends.</p>
-    </article>
+      <article class="rounded-[14px] border border-line bg-surface p-5">
+        <div class="flex items-start justify-between gap-3">
+          <span class="text-[14px] font-extrabold tabular-nums text-muted">08</span>
+          <span class="rounded-full border border-line bg-ground px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-deep">Seller · Buyer</span>
+        </div>
+        <h3 class="mt-2 text-[16.5px] font-black leading-tight text-slate">Pre-Qualifying Leads</h3>
+        <p class="mt-1.5 text-[15px] leading-snug text-body">Asking the hard questions early so you stop donating weekends.</p>
+      </article>
 
-    <!-- 9 -->
-    <article class="group rounded-2xl border border-white/10 bg-ink-800 p-6 transition hover:border-gold-400/40">
-      <div class="flex items-start justify-between gap-3">
-        <span class="tnum font-display text-sm font-semibold text-gold-400">09</span>
-        <span class="rounded-full border border-white/15 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-shell-100/60">Buyer</span>
-      </div>
-      <h3 class="mt-3 font-display text-lg font-semibold leading-snug text-shell-50">Presenting to Buyers</h3>
-      <p class="mt-2 text-sm leading-relaxed text-shell-100/70">The buyer consult — on video or across the table.</p>
-    </article>
+      <article class="rounded-[14px] border border-line bg-surface p-5">
+        <div class="flex items-start justify-between gap-3">
+          <span class="text-[14px] font-extrabold tabular-nums text-muted">09</span>
+          <span class="rounded-full border border-line bg-ground px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-deep">Buyer</span>
+        </div>
+        <h3 class="mt-2 text-[16.5px] font-black leading-tight text-slate">Presenting to Buyers</h3>
+        <p class="mt-1.5 text-[15px] leading-snug text-body">The buyer consult — on video or across the table.</p>
+      </article>
 
-    <!-- 10 -->
-    <article class="group rounded-2xl border border-white/10 bg-ink-800 p-6 transition hover:border-gold-400/40">
-      <div class="flex items-start justify-between gap-3">
-        <span class="tnum font-display text-sm font-semibold text-gold-400">10</span>
-        <span class="rounded-full border border-white/15 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-shell-100/60">Seller</span>
-      </div>
-      <h3 class="mt-3 font-display text-lg font-semibold leading-snug text-shell-50">Presenting to Sellers — I</h3>
-      <p class="mt-2 text-sm leading-relaxed text-shell-100/70">The listing presentation, start to signature.</p>
-    </article>
+      <article class="rounded-[14px] border border-line bg-surface p-5">
+        <div class="flex items-start justify-between gap-3">
+          <span class="text-[14px] font-extrabold tabular-nums text-muted">10</span>
+          <span class="rounded-full border border-line bg-ground px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-deep">Seller</span>
+        </div>
+        <h3 class="mt-2 text-[16.5px] font-black leading-tight text-slate">Presenting to Sellers — I</h3>
+        <p class="mt-1.5 text-[15px] leading-snug text-body">The listing presentation, start to signature.</p>
+      </article>
 
-    <!-- 11 -->
-    <article class="group rounded-2xl border border-white/10 bg-ink-800 p-6 transition hover:border-gold-400/40">
-      <div class="flex items-start justify-between gap-3">
-        <span class="tnum font-display text-sm font-semibold text-gold-400">11</span>
-        <span class="rounded-full border border-white/15 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-shell-100/60">Seller</span>
-      </div>
-      <h3 class="mt-3 font-display text-lg font-semibold leading-snug text-shell-50">Presenting to Sellers — II</h3>
-      <p class="mt-2 text-sm leading-relaxed text-shell-100/70">Price, commission, and the objections that come after the pitch.</p>
-    </article>
+      <article class="rounded-[14px] border border-line bg-surface p-5">
+        <div class="flex items-start justify-between gap-3">
+          <span class="text-[14px] font-extrabold tabular-nums text-muted">11</span>
+          <span class="rounded-full border border-line bg-ground px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-deep">Seller</span>
+        </div>
+        <h3 class="mt-2 text-[16.5px] font-black leading-tight text-slate">Presenting to Sellers — II</h3>
+        <p class="mt-1.5 text-[15px] leading-snug text-body">Price, commission, and the objections that come after the pitch.</p>
+      </article>
 
-    <!-- 12 -->
-    <article class="group rounded-2xl border border-white/10 bg-ink-800 p-6 transition hover:border-gold-400/40">
-      <div class="flex items-start justify-between gap-3">
-        <span class="tnum font-display text-sm font-semibold text-gold-400">12</span>
-        <span class="rounded-full border border-white/15 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-shell-100/60">Buyer</span>
-      </div>
-      <h3 class="mt-3 font-display text-lg font-semibold leading-snug text-shell-50">Buyer Seminars — How to Host</h3>
-      <p class="mt-2 text-sm leading-relaxed text-shell-100/70">Filling a room of buyers and converting it into clients.</p>
-    </article>
+      <article class="rounded-[14px] border border-line bg-surface p-5">
+        <div class="flex items-start justify-between gap-3">
+          <span class="text-[14px] font-extrabold tabular-nums text-muted">12</span>
+          <span class="rounded-full border border-line bg-ground px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-deep">Buyer</span>
+        </div>
+        <h3 class="mt-2 text-[16.5px] font-black leading-tight text-slate">Buyer Seminars — How to Host</h3>
+        <p class="mt-1.5 text-[15px] leading-snug text-body">Filling a room of buyers and converting it into clients.</p>
+      </article>
 
+    </div>
   </div>
 </section>
 
 <!-- ================= WHO IT'S FOR ================= -->
-<section id="who" class="border-y border-white/10 bg-ink-800">
-  <div class="mx-auto grid max-w-6xl gap-10 px-5 py-20 md:grid-cols-2 md:py-24">
-    <div>
-      <p class="text-xs font-semibold uppercase tracking-[0.18em] text-gold-400">Fit</p>
-      <h2 class="mt-3 font-display text-3xl font-semibold tracking-tight text-shell-50 md:text-4xl">
-        This is for agents with a business, not agents looking for one.
-      </h2>
-      <p class="mt-4 text-shell-100/75">
-        Humpty Dumpty assumes you're already in the field, already listing, already handling
-        objections — and want to be measurably better at all three. It is not an onboarding
-        course, and it isn't for brand-new licensees.
-      </p>
-      <!-- TODO: confirm the income threshold (discussed as $150K or $200K) before publishing -->
-      <p class="mt-4 rounded-xl border border-white/10 bg-ink-700/60 p-4 text-sm text-shell-100/70">
-        <strong class="font-semibold text-shell-50">Guideline:</strong> built for agents earning
-        roughly <span class="text-gold-300">$[INCOME THRESHOLD]</span>+ a year.
-        Close to the line and serious? Apply anyway — we'll talk.
-      </p>
+<section id="who" class="bg-surface py-12 md:py-14">
+  <div class="mx-auto max-w-brand px-6">
+    <p class="eyebrow text-center">Fit</p>
+    <h2 class="section text-center">For Agents With A Business, Not Agents Looking For One.</h2>
+    <p class="mx-auto mt-4 max-w-[640px] text-center text-body">
+      Humpty Dumpty assumes you're already in the field, already listing, already handling
+      objections — and want to be measurably better at all three.
+    </p>
+
+    <div class="mx-auto mt-8 grid max-w-[860px] gap-4 sm:grid-cols-2">
+      <div class="rounded-[14px] border border-line border-l-4 border-l-green bg-ground p-5">
+        <h3 class="m-0 mb-2 text-[17.5px] font-black leading-tight text-slate">You'll thrive here if…</h3>
+        <ul class="m-0 list-none space-y-2 p-0 text-[15.5px] leading-snug text-body">
+          <li class="flex gap-2.5"><span class="font-black text-green">✓</span><span>You'll roleplay in front of peers</span></li>
+          <li class="flex gap-2.5"><span class="font-black text-green">✓</span><span>You show up weekly, in person</span></li>
+          <li class="flex gap-2.5"><span class="font-black text-green">✓</span><span>You want coaching on your actual deals</span></li>
+          <li class="flex gap-2.5"><span class="font-black text-green">✓</span><span>You're chasing craft, not motivation</span></li>
+        </ul>
+      </div>
+      <div class="rounded-[14px] border border-line border-l-4 border-l-muted bg-ground p-5">
+        <h3 class="m-0 mb-2 text-[17.5px] font-black leading-tight text-slate">Probably not if…</h3>
+        <ul class="m-0 list-none space-y-2 p-0 text-[15.5px] leading-snug text-body">
+          <li class="flex gap-2.5"><span class="font-black text-muted">✕</span><span>You're newly licensed</span></li>
+          <li class="flex gap-2.5"><span class="font-black text-muted">✕</span><span>You want to watch, not participate</span></li>
+          <li class="flex gap-2.5"><span class="font-black text-muted">✕</span><span>You need an online-only program</span></li>
+          <li class="flex gap-2.5"><span class="font-black text-muted">✕</span><span>You're after recordings to binge later</span></li>
+        </ul>
+      </div>
     </div>
 
-    <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
-      <div class="rounded-2xl border border-white/10 bg-ink-700/60 p-6">
-        <h3 class="font-display text-base font-semibold text-shell-50">You'll thrive here if…</h3>
-        <ul class="mt-3 space-y-2.5 text-sm text-shell-100/75">
-          <li class="flex gap-2.5"><span class="text-gold-400">✓</span><span>You'll roleplay in front of peers</span></li>
-          <li class="flex gap-2.5"><span class="text-gold-400">✓</span><span>You show up weekly, in person</span></li>
-          <li class="flex gap-2.5"><span class="text-gold-400">✓</span><span>You want coaching on your actual deals</span></li>
-          <li class="flex gap-2.5"><span class="text-gold-400">✓</span><span>You're chasing craft, not motivation</span></li>
-        </ul>
-      </div>
-      <div class="rounded-2xl border border-white/10 bg-ink-700/60 p-6">
-        <h3 class="font-display text-base font-semibold text-shell-50">Probably not if…</h3>
-        <ul class="mt-3 space-y-2.5 text-sm text-shell-100/75">
-          <li class="flex gap-2.5"><span class="text-shell-100/40">✕</span><span>You're newly licensed</span></li>
-          <li class="flex gap-2.5"><span class="text-shell-100/40">✕</span><span>You want to watch, not participate</span></li>
-          <li class="flex gap-2.5"><span class="text-shell-100/40">✕</span><span>You need an online-only program</span></li>
-          <li class="flex gap-2.5"><span class="text-shell-100/40">✕</span><span>You're after recordings to binge later</span></li>
-        </ul>
-      </div>
+    <!-- Reassurance, not urgency — brand blue instead of the shared red accent -->
+    <!-- TODO: confirm the income threshold (discussed as $150K or $200K) before publishing -->
+    <div class="mx-auto mt-5 max-w-[860px] rounded-[14px] border border-line border-l-[5px] p-6" style="background:rgba(151,204,222,.14);border-left-color:var(--blue-ink)">
+      <p class="m-0 mb-2 text-[12.5px] font-black uppercase tracking-[1.5px] text-blue-ink">The income guideline</p>
+      <p class="m-0 text-[16px] font-bold leading-relaxed text-slate-deep">
+        Built for agents earning roughly <b class="text-slate">$[INCOME THRESHOLD]</b>+ a year.
+        The guideline exists to keep the room level, not to gatekeep for its own sake — close to
+        the line and serious about the format? Apply anyway, and we'll talk.
+      </p>
     </div>
   </div>
 </section>
@@ -414,123 +471,102 @@
 <!-- ================= PRICING ================= -->
 <!-- TODO: pricing, payment terms (month-to-month vs. 3-month minimum) and any launch
      special are still being decided. Replace the placeholders below before publishing. -->
-<section id="pricing" class="mx-auto max-w-6xl px-5 py-20 md:py-24">
-  <p class="text-xs font-semibold uppercase tracking-[0.18em] text-gold-400">Investment</p>
-  <h2 class="mt-3 font-display text-3xl font-semibold tracking-tight text-shell-50 md:text-4xl">
-    One program. Everything included.
-  </h2>
+<section id="pricing" class="bg-ground py-12 md:py-14">
+  <div class="mx-auto max-w-brand px-6">
+    <p class="eyebrow text-center">Investment</p>
+    <h2 class="section text-center">One Program. Everything Included.</h2>
 
-  <div class="mt-12 grid gap-6 lg:grid-cols-[1.1fr_1fr]">
-    <div class="rounded-3xl border border-gold-400/30 bg-gradient-to-b from-gold-400/[0.10] to-transparent p-8 md:p-10">
-      <h3 class="font-display text-2xl font-semibold text-shell-50">Humpty Dumpty</h3>
-      <p class="mt-1 text-sm text-shell-100/65">Weekly, in person · Ongoing</p>
+    <div class="mx-auto mt-8 grid max-w-[860px] items-start gap-5 md:grid-cols-2">
+      <!-- Price anchor — brand pattern: white card, red rule -->
+      <div class="rounded-[18px] border-2 border-red bg-ground p-7 text-center shadow-brand">
+        <h3 class="m-0 text-[21px] font-black leading-tight text-slate">Humpty Dumpty</h3>
+        <p class="m-0 mt-1 text-[14px] font-bold text-muted">Weekly, in person · Ongoing</p>
 
-      <div class="mt-7 flex items-baseline gap-2">
-        <span class="tnum font-display text-5xl font-semibold text-shell-50">$[PRICE]</span>
-        <span class="text-shell-100/60">/ month</span>
+        <p class="m-0 mt-5 text-[clamp(26px,6.5vw,32px)] font-black leading-none text-red">$[PRICE]<span class="text-[16px] font-extrabold text-muted"> / month</span></p>
+        <p class="m-0 mt-2.5 border-t border-line pt-3 text-[14px] font-extrabold text-muted">
+          [PAYMENT TERMS — month-to-month or 3-month minimum]
+        </p>
+
+        <ul class="m-0 mt-5 list-none space-y-3 p-0 text-left text-[15.5px] leading-snug text-body">
+          <li class="flex gap-2.5"><span class="font-black text-green">✓</span><span>Two hours of live, in-person training <b class="text-slate-deep">every week</b></span></li>
+          <li class="flex gap-2.5"><span class="font-black text-green">✓</span><span>Mindset, roleplay and an objection handler in every class</span></li>
+          <li class="flex gap-2.5"><span class="font-black text-green">✓</span><span>Individual scenarios worked on <b class="text-slate-deep">your real deals</b></span></li>
+          <li class="flex gap-2.5"><span class="font-black text-green">✓</span><span>A monthly deep-dive across listing and buyer skills</span></li>
+          <li class="flex gap-2.5"><span class="font-black text-green">✓</span><span><b class="text-slate-deep">Two flash calls a month</b>, when you need them most</span></li>
+        </ul>
+
+        <a href="#apply" class="btn btn-primary mt-6 block">Apply for the next cohort</a>
+        <!-- TODO: add launch/"special" offer copy here if one is approved -->
       </div>
-      <p class="mt-2 text-sm text-shell-100/60">
-        <!-- TODO: choose one — month-to-month, or 3-month minimum commitment -->
-        [PAYMENT TERMS — month-to-month or 3-month minimum]
-      </p>
 
-      <ul class="mt-8 space-y-3 text-sm text-shell-100/80">
-        <li class="flex gap-3"><span class="text-gold-400">✓</span><span>Two hours of live, in-person training every week</span></li>
-        <li class="flex gap-3"><span class="text-gold-400">✓</span><span>Mindset, roleplay and an objection handler in every class</span></li>
-        <li class="flex gap-3"><span class="text-gold-400">✓</span><span>Individual scenarios worked on your real deals</span></li>
-        <li class="flex gap-3"><span class="text-gold-400">✓</span><span>A monthly deep-dive topic across listing and buyer skills</span></li>
-        <li class="flex gap-3"><span class="text-gold-400">✓</span><span>Two flash calls a month, when you need them most</span></li>
-      </ul>
-
-      <a href="#apply" class="mt-9 block rounded-full bg-gold-400 px-7 py-3.5 text-center font-semibold text-ink-900 transition hover:bg-gold-300">Apply for the next cohort</a>
-    </div>
-
-    <div class="flex flex-col justify-center rounded-3xl border border-white/10 bg-ink-800 p-8 md:p-10">
-      <h3 class="font-display text-xl font-semibold text-shell-50">Why it's an application</h3>
-      <p class="mt-3 text-sm leading-relaxed text-shell-100/75">
-        Roleplay only works when the room is level. Everyone in Humpty Dumpty is a working
-        agent with live business, which means the scenarios are real, the feedback is useful,
-        and nobody is practising on a hypothetical.
-      </p>
-      <p class="mt-4 text-sm leading-relaxed text-shell-100/75">
-        Seats are limited by the size of the room — we cap the cohort so every agent gets reps
-        and individual coaching time in each class.
-      </p>
-      <!-- TODO: add launch/"special" offer copy here if one is approved -->
+      <div class="rounded-[18px] border border-line bg-surface p-7">
+        <h3 class="m-0 text-[21px] font-black leading-tight text-slate">Why It's An Application</h3>
+        <p class="mt-3 text-[15.5px] leading-relaxed text-body">
+          Roleplay only works when the room is level. Everyone in Humpty Dumpty is a working
+          agent with live business, which means the scenarios are real, the feedback is useful,
+          and <b class="text-slate-deep">nobody is practising on a hypothetical</b>.
+        </p>
+        <p class="mt-3.5 text-[15.5px] leading-relaxed text-body">
+          Seats are limited by the size of the room — we cap the cohort so every agent gets reps
+          and individual coaching time in each class.
+        </p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ================= FAQ ================= -->
-<section id="faq" class="border-t border-white/10 bg-ink-800">
-  <div class="mx-auto max-w-3xl px-5 py-20 md:py-24">
-    <h2 class="font-display text-3xl font-semibold tracking-tight text-shell-50 md:text-4xl">Questions</h2>
+<section id="faq" class="bg-surface py-12 md:py-14">
+  <div class="mx-auto max-w-[780px] px-6">
+    <h2 class="section text-center">Questions</h2>
 
-    <div class="mt-10 divide-y divide-white/10 border-y border-white/10">
-      <details data-faq class="group py-5">
-        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-medium text-shell-50">
-          Is any of this online?
-          <span class="faq-chev text-gold-400 transition-transform">⌄</span>
-        </summary>
-        <p class="mt-3 text-sm leading-relaxed text-shell-100/75">
-          No. Humpty Dumpty is in person by design — roleplay, feedback and reading a room
-          don't transfer well through a screen. Your two monthly flash calls are by phone.
+    <div class="mt-8">
+      <details class="faq border-b border-t border-line">
+        <summary class="relative cursor-pointer py-4 pl-0.5 pr-10 text-[17px] font-extrabold leading-snug text-slate-deep">Is any of this online?</summary>
+        <p class="-mt-0.5 mb-4 pr-10 text-[16px] leading-relaxed text-body">
+          No. Humpty Dumpty is in person by design — roleplay, feedback and reading a room don't
+          transfer well through a screen. Your two monthly flash calls are by phone.
         </p>
       </details>
 
-      <details data-faq class="group py-5">
-        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-medium text-shell-50">
-          How much roleplay is there, really?
-          <span class="faq-chev text-gold-400 transition-transform">⌄</span>
-        </summary>
-        <p class="mt-3 text-sm leading-relaxed text-shell-100/75">
+      <details class="faq border-b border-line">
+        <summary class="relative cursor-pointer py-4 pl-0.5 pr-10 text-[17px] font-extrabold leading-snug text-slate-deep">How much roleplay is there, really?</summary>
+        <p class="-mt-0.5 mb-4 pr-10 text-[16px] leading-relaxed text-body">
           Every class. It's one of the four fixed segments, alongside individual scenarios where
-          your own stuck conversations get worked in front of the group. If you don't want to
-          speak out loud, this isn't the right program.
+          your own stuck conversations get worked in front of the group.
+          <b class="text-slate-deep">If you don't want to speak out loud, this isn't the right program.</b>
         </p>
       </details>
 
-      <details data-faq class="group py-5">
-        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-medium text-shell-50">
-          What exactly is a flash call?
-          <span class="faq-chev text-gold-400 transition-transform">⌄</span>
-        </summary>
-        <p class="mt-3 text-sm leading-relaxed text-shell-100/75">
+      <details class="faq border-b border-line">
+        <summary class="relative cursor-pointer py-4 pl-0.5 pr-10 text-[17px] font-extrabold leading-snug text-slate-deep">What exactly is a flash call?</summary>
+        <p class="-mt-0.5 mb-4 pr-10 text-[16px] leading-relaxed text-body">
           A short, on-demand call before a high-stakes conversation — most often right before a
           listing appointment. You get two a month, included.
         </p>
       </details>
 
-      <details data-faq class="group py-5">
-        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-medium text-shell-50">
-          Do I have to follow the twelve topics in order?
-          <span class="faq-chev text-gold-400 transition-transform">⌄</span>
-        </summary>
-        <p class="mt-3 text-sm leading-relaxed text-shell-100/75">
+      <details class="faq border-b border-line">
+        <summary class="relative cursor-pointer py-4 pl-0.5 pr-10 text-[17px] font-extrabold leading-snug text-slate-deep">Do I have to follow the twelve topics in order?</summary>
+        <p class="-mt-0.5 mb-4 pr-10 text-[16px] leading-relaxed text-body">
           The twelve are a showcase of what gets covered, not a fixed or exhaustive syllabus.
           Order moves with the market and what the room needs, and topics get added.
         </p>
       </details>
 
-      <details data-faq class="group py-5">
-        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-medium text-shell-50">
-          Is this for buyer agents or listing agents?
-          <span class="faq-chev text-gold-400 transition-transform">⌄</span>
-        </summary>
-        <p class="mt-3 text-sm leading-relaxed text-shell-100/75">
+      <details class="faq border-b border-line">
+        <summary class="relative cursor-pointer py-4 pl-0.5 pr-10 text-[17px] font-extrabold leading-snug text-slate-deep">Is this for buyer agents or listing agents?</summary>
+        <p class="-mt-0.5 mb-4 pr-10 text-[16px] leading-relaxed text-body">
           Both, and the strongest agents work both sides. The catalogue is deliberately split —
           some topics are seller-focused, some buyer-focused, several are neither.
         </p>
       </details>
 
-      <details data-faq class="group py-5">
-        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-medium text-shell-50">
-          I'm below the income guideline. Should I still apply?
-          <span class="faq-chev text-gold-400 transition-transform">⌄</span>
-        </summary>
-        <p class="mt-3 text-sm leading-relaxed text-shell-100/75">
+      <details class="faq border-b border-line">
+        <summary class="relative cursor-pointer py-4 pl-0.5 pr-10 text-[17px] font-extrabold leading-snug text-slate-deep">I'm below the income guideline. Should I still apply?</summary>
+        <p class="-mt-0.5 mb-4 pr-10 text-[16px] leading-relaxed text-body">
           If you're actively listing and committed to the weekly format, apply and tell us where
-          you're at. The guideline exists to keep the room level, not to gatekeep for its own sake.
+          you're at. The guideline keeps the room level; it isn't a hard cutoff.
         </p>
       </details>
     </div>
@@ -538,62 +574,60 @@
 </section>
 
 <!-- ================= APPLY ================= -->
-<section id="apply" class="grain relative overflow-hidden border-t border-white/10">
-  <div class="pointer-events-none absolute -bottom-40 left-1/2 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-gold-500/20 blur-[120px]"></div>
-  <div class="relative mx-auto max-w-2xl px-5 py-20 text-center md:py-28">
-    <h2 class="font-display text-3xl font-semibold tracking-tight text-shell-50 md:text-5xl">
-      Get in the room.
-    </h2>
-    <p class="mx-auto mt-5 max-w-lg text-shell-100/75">
+<section id="apply" class="bg-ground py-12 md:py-14">
+  <div class="mx-auto max-w-brand px-6 text-center">
+    <p class="eyebrow eyebrow--red">Next Cohort</p>
+    <h2 class="section">Get In The Room.</h2>
+    <p class="mx-auto mt-4 max-w-[560px] text-body">
       Tell us where your business is and what you're trying to fix. If it's a fit, we'll reach
       out with cohort dates and next steps.
     </p>
 
     <!-- TODO: point action= at your form handler (Formspree / Google Form / CRM endpoint),
          or replace this block entirely with an embedded form. -->
-    <form class="mx-auto mt-10 max-w-md space-y-3 text-left" action="#" method="post">
-      <div>
-        <label for="name" class="sr-only">Full name</label>
-        <input id="name" name="name" type="text" required placeholder="Full name"
-          class="w-full rounded-xl border border-white/15 bg-ink-800 px-4 py-3 text-shell-50 placeholder-shell-100/40 outline-none transition focus:border-gold-400" />
-      </div>
-      <div>
-        <label for="email" class="sr-only">Email</label>
-        <input id="email" name="email" type="email" required placeholder="Email"
-          class="w-full rounded-xl border border-white/15 bg-ink-800 px-4 py-3 text-shell-50 placeholder-shell-100/40 outline-none transition focus:border-gold-400" />
-      </div>
-      <div>
-        <label for="phone" class="sr-only">Phone</label>
-        <input id="phone" name="phone" type="tel" placeholder="Phone"
-          class="w-full rounded-xl border border-white/15 bg-ink-800 px-4 py-3 text-shell-50 placeholder-shell-100/40 outline-none transition focus:border-gold-400" />
-      </div>
-      <div>
-        <label for="brokerage" class="sr-only">Brokerage</label>
-        <input id="brokerage" name="brokerage" type="text" placeholder="Brokerage"
-          class="w-full rounded-xl border border-white/15 bg-ink-800 px-4 py-3 text-shell-50 placeholder-shell-100/40 outline-none transition focus:border-gold-400" />
-      </div>
-      <div>
-        <label for="goal" class="sr-only">What are you trying to fix?</label>
-        <textarea id="goal" name="goal" rows="3" placeholder="What are you trying to fix this year?"
-          class="w-full rounded-xl border border-white/15 bg-ink-800 px-4 py-3 text-shell-50 placeholder-shell-100/40 outline-none transition focus:border-gold-400"></textarea>
-      </div>
-      <button type="submit"
-        class="w-full rounded-full bg-gold-400 px-7 py-3.5 font-semibold text-ink-900 transition hover:bg-gold-300">
-        Submit application
-      </button>
-      <p class="pt-1 text-center text-xs text-shell-100/45">We'll only use your details to follow up about this program.</p>
+    <form class="mx-auto mt-8 max-w-[460px] space-y-3 text-left" action="#" method="post">
+      <label for="name" class="sr-only">Full name</label>
+      <input id="name" name="name" type="text" required placeholder="Full name"
+        class="w-full rounded-[12px] border border-line bg-surface px-4 py-3 text-[16px] text-slate-deep placeholder-muted outline-none transition focus:border-blue-ink" />
+
+      <label for="email" class="sr-only">Email</label>
+      <input id="email" name="email" type="email" required placeholder="Email"
+        class="w-full rounded-[12px] border border-line bg-surface px-4 py-3 text-[16px] text-slate-deep placeholder-muted outline-none transition focus:border-blue-ink" />
+
+      <label for="phone" class="sr-only">Phone</label>
+      <input id="phone" name="phone" type="tel" placeholder="Phone"
+        class="w-full rounded-[12px] border border-line bg-surface px-4 py-3 text-[16px] text-slate-deep placeholder-muted outline-none transition focus:border-blue-ink" />
+
+      <label for="brokerage" class="sr-only">Brokerage</label>
+      <input id="brokerage" name="brokerage" type="text" placeholder="Brokerage"
+        class="w-full rounded-[12px] border border-line bg-surface px-4 py-3 text-[16px] text-slate-deep placeholder-muted outline-none transition focus:border-blue-ink" />
+
+      <label for="goal" class="sr-only">What are you trying to fix?</label>
+      <textarea id="goal" name="goal" rows="3" placeholder="What are you trying to fix this year?"
+        class="w-full rounded-[12px] border border-line bg-surface px-4 py-3 text-[16px] text-slate-deep placeholder-muted outline-none transition focus:border-blue-ink"></textarea>
+
+      <button type="submit" class="btn btn-primary w-full">Submit application</button>
+      <p class="pt-1 text-center text-[13.5px] leading-relaxed text-muted">
+        We'll only use your details to follow up about this program.
+      </p>
     </form>
   </div>
 </section>
 
 <!-- ================= FOOTER ================= -->
-<footer class="border-t border-white/10 bg-ink-900">
-  <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 py-8 text-sm text-shell-100/50 sm:flex-row">
-    <p>© <span id="year">2026</span> Humpty Dumpty. All rights reserved.</p>
+<footer class="border-t border-line bg-ground py-10 text-center text-[13.5px] text-muted">
+  <div class="mx-auto max-w-brand px-6">
     <!-- TODO: confirm brand / brokerage attribution and contact details -->
-    <p><a href="#apply" class="transition hover:text-shell-50">Apply</a></p>
+    <p class="m-0"><span class="font-extrabold tracking-wide text-slate">Humpty Dumpty</span> · Let's Farm with Monica Thapar</p>
+    <p class="m-0 mt-2">© <span id="year">2026</span> All rights reserved.</p>
   </div>
 </footer>
+
+<!-- Sticky mobile CTA -->
+<div class="sticky-cta">
+  <p class="info">Humpty Dumpty<span>Weekly · In person · Apply now</span></p>
+  <a href="#apply" class="btn btn-primary">Apply</a>
+</div>
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();

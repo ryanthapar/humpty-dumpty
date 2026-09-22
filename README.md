@@ -56,6 +56,19 @@ Deploys to GitHub Pages via `.github/workflows/pages.yml` on every push to `main
 
 One-time setup: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 
+## Source material
+
+The curriculum (the "Here's What Humpty Dumpty Includes" cards), the cadence, the
+price, the payment terms and the December launch offer all come from an official
+promotional flyer ("Humpty Dumpty — Real Estate Agent Mastermind"), which superseded
+an earlier, rougher 12-topic list drawn from internal meeting notes. If the flyer and
+this page ever diverge, treat the flyer (or whatever replaces it) as the source of
+truth and update `index.html` to match.
+
+The "for driven agents" framing in the Who It's For section and its matching FAQ entry
+also come from that flyer — it describes the audience as "motivated and serious about
+success" with no income figure, so the page does not state an income threshold.
+
 ## Placeholders still to fill
 
 The page ships with the copy that is settled and visible `[BRACKETED]` placeholders
@@ -63,19 +76,12 @@ for the decisions that are not. Search `index.html` for `TODO:` to find each one
 
 | Placeholder | Where | Decision needed |
 | --- | --- | --- |
-| `[PAYMENT TERMS]` | Pricing section | Month-to-month vs. 3-month minimum |
-| `$[INCOME THRESHOLD]` | Who It's For | $150K or $200K guideline |
-| Launch special | Pricing card | Whether there is an intro offer, and what |
 | Form `action` | Registration section | Form handler endpoint (Formspree / Google Form / CRM) |
 | `og:image`, `og:url` | `<head>` | Social share image and live domain |
 | Footer attribution | Footer | Brand/brokerage line and contact details |
 
-Price is set at **$599 + HST / month**. That's an assumption that this is billed
-monthly regardless of the biweekly class cadence — flag it if it should instead
-be per-session or a different billing period.
-
-The income guideline is now descriptive, not a gate — every Fast Track Farming 101 grad
-is eligible regardless of income, so the placeholder just needs a number for "who else
-will be in the room," not an admission cutoff.
+Price, payment terms and the launch offer are resolved: **$599 + HST / month, minimum
+three-month commitment**, with **"Join today, get December free"** on the pricing card
+and in a site-wide announcement bar above the nav.
 
 Instructor, cohort start date, and venue are not yet on the page — add them once confirmed.

@@ -59,11 +59,14 @@ One-time setup: **Settings → Pages → Build and deployment → Source: GitHub
 ## Source material
 
 The curriculum (the "Here's What Humpty Dumpty Includes" cards), the cadence, the
-price, the payment terms and the December launch offer all come from an official
-promotional flyer ("Humpty Dumpty — Real Estate Agent Mastermind"), which superseded
-an earlier, rougher 12-topic list drawn from internal meeting notes. If the flyer and
-this page ever diverge, treat the flyer (or whatever replaces it) as the source of
-truth and update `index.html` to match.
+price and the payment terms all come from an official promotional flyer ("Humpty
+Dumpty — Real Estate Agent Mastermind"), which superseded an earlier, rougher
+12-topic list drawn from internal meeting notes. If the flyer and this page ever
+diverge, treat the flyer (or whatever replaces it) as the source of truth and update
+`index.html` to match.
+
+The launch offer is a separate, later instruction that supersedes the flyer's own
+"December free" wording — see below.
 
 The "for driven agents" framing in the Who It's For section and its matching FAQ entry
 also come from that flyer — it describes the audience as "motivated and serious about
@@ -79,9 +82,17 @@ for the decisions that are not. Search `index.html` for `TODO:` to find each one
 | `og:image`, `og:url` | `<head>` | Social share image and live domain |
 | Footer attribution | Footer | Brand/brokerage line — contact email is now filled in |
 
-Price, payment terms and the launch offer are resolved: **$599 + HST / month, minimum
-three-month commitment**, with **"Join today, get December free"** on the pricing card
-and in a site-wide announcement bar above the nav.
+Price and payment terms are resolved: **$599 + HST / month, minimum three-month
+commitment**.
+
+The launch offer is date-specific: **sign up by end of day September 22, 2026 — the
+day of Fast Track Farming 101 — and get your first month free**. That exact date is
+hardcoded in the site-wide announcement bar and the two promo pills (pricing card and
+registration section). The page is being distributed as a same-day link to that
+cohort's graduates, so a hardcoded date was the given instruction, not a guess — but
+it also means the offer copy goes stale the moment that date passes. If this page
+gets reused for a future cohort, update or remove the date in all three places
+(search `index.html` for "September 22").
 
 ## Registration
 

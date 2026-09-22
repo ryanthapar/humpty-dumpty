@@ -76,12 +76,24 @@ for the decisions that are not. Search `index.html` for `TODO:` to find each one
 
 | Placeholder | Where | Decision needed |
 | --- | --- | --- |
-| Form `action` | Registration section | Form handler endpoint (Formspree / Google Form / CRM) |
 | `og:image`, `og:url` | `<head>` | Social share image and live domain |
 | Footer attribution | Footer | Brand/brokerage line and contact details |
 
 Price, payment terms and the launch offer are resolved: **$599 + HST / month, minimum
 three-month commitment**, with **"Join today, get December free"** on the pricing card
 and in a site-wide announcement bar above the nav.
+
+## Registration
+
+The registration section (`#apply`) links straight to a Square-hosted checkout page —
+there is no intake form on the site itself, so registering **is** paying. Every other
+"Register" CTA on the page (nav, hero, pricing card, sticky mobile bar) scrolls to this
+one section rather than linking to Square directly, so it stays the single place that
+sends money off-site.
+
+The Square link was supplied directly and has not been test-clicked from this
+environment — this sandbox's egress policy blocks `checkout.square.site`, the same way
+it blocks the Tailwind CDN (see below). Click it once yourself before pointing real
+traffic at the page.
 
 Instructor, cohort start date, and venue are not yet on the page — add them once confirmed.

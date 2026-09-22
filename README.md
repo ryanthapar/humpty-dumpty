@@ -77,7 +77,7 @@ for the decisions that are not. Search `index.html` for `TODO:` to find each one
 | Placeholder | Where | Decision needed |
 | --- | --- | --- |
 | `og:image`, `og:url` | `<head>` | Social share image and live domain |
-| Footer attribution | Footer | Brand/brokerage line and contact details |
+| Footer attribution | Footer | Brand/brokerage line — contact email is now filled in |
 
 Price, payment terms and the launch offer are resolved: **$599 + HST / month, minimum
 three-month commitment**, with **"Join today, get December free"** on the pricing card
@@ -90,6 +90,10 @@ there is no intake form on the site itself, so registering **is** paying. Every 
 "Register" CTA on the page (nav, hero, pricing card, sticky mobile bar) scrolls to this
 one section rather than linking to Square directly, so it stays the single place that
 sends money off-site.
+
+For anyone not ready to pay, the same section offers a secondary "Request More
+Information" button — a `mailto:` link to `info@letsfarm.ca` with a pre-filled subject
+line. The same address is also in the footer.
 
 The Square link was supplied directly and has not been test-clicked from this
 environment — this sandbox's egress policy blocks `checkout.square.site`, the same way

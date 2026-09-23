@@ -85,14 +85,14 @@ for the decisions that are not. Search `index.html` for `TODO:` to find each one
 Price and payment terms are resolved: **$599 + HST / month, minimum three-month
 commitment**.
 
-The launch offer is date-specific: **sign up by end of day September 22, 2026 — the
-day of Fast Track Farming 101 — and get your first month free**. That exact date is
-hardcoded in the site-wide announcement bar and the two promo pills (pricing card and
-registration section). The page is being distributed as a same-day link to that
-cohort's graduates, so a hardcoded date was the given instruction, not a guess — but
-it also means the offer copy goes stale the moment that date passes. If this page
-gets reused for a future cohort, update or remove the date in all three places
-(search `index.html` for "September 22").
+The launch offer is date-specific: **sign up by Sunday, September 27, 2026 and get
+your first month free**. It originally read "by end of day September 22" (the day of
+Fast Track Farming 101) and was extended five days — dropping the "day of FFT101"
+framing in the banner along with it, since that claim stopped being literally true
+once the window widened. That exact date is hardcoded in the site-wide announcement
+bar and the two promo pills (pricing card and registration section), so it goes stale
+the moment that date passes. If it's extended again or reused for a future cohort,
+update or remove the date in all three places (search `index.html` for "September 27").
 
 ## Registration
 
